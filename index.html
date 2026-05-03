@@ -224,6 +224,22 @@ async function fetchWords(){
     }
 }
 
+// ボタンを押した時の効果音（とりあえず空の関数を作成）
+function playMysticSound() {
+    console.log("Sound played!"); 
+    // ここに将来的に音を鳴らす処理を書けばOK
+}
+
+// ボタンを光らせる演出の関数
+function animateButton(btn) {
+    if (!btn) return;
+    btn.classList.add("btn-flash");
+    setTimeout(() => {
+        btn.classList.remove("btn-flash");
+    }, 400);
+}
+
+    
 let audioCtx = null;
 
 function startFromTitle(){
