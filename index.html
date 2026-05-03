@@ -224,25 +224,34 @@ async function fetchWords(){
     }
 }
 
+let audioCtx = null;
+
 function startFromTitle(){
+    playMysticSound(); // 音を追加
+    const btn = event.currentTarget; // 押されたボタン
+    animateButton(btn); // 光を追加
+
     titleBgm.volume = 0.5;
     titleBgm.currentTime = 0;
     titleBgm.play().catch(e => console.log("title bgm error:", e));
 
-    show("level-screen");
+    setTimeout(() => show("level-screen"), 400); // 演出が終わる頃に画面遷移
 }
 
 function selectLevel(level){
+    playMysticSound(); // 音を追加
+    animateButton(event.currentTarget); // 光を追加
+
     filteredList = masterWordList.filter(w => w.level === level);
+    if (filteredList.length === 0) filteredList = masterWordList;
 
-    if (filteredList.length === 0) {
-        filteredList = masterWordList;
-    }
-
-    show("start-screen");
+    setTimeout(() => show("start-screen"), 400);
 }
 
 function startGame(num){
+    playMysticSound(); // 音を追加
+    animateButton(event.currentTarget); // 光を追加
+
     titleBgm.pause();
     titleBgm.currentTime = 0;
 
@@ -250,15 +259,13 @@ function startGame(num){
     bgm.currentTime = 0;
     bgm.play().catch(e => console.log("game bgm error:", e));
 
-    gameList = [...filteredList]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, num);
+    gameList = [...filteredList].sort(() => Math.random() - 0.5).slice(0, num);
+    idx = 0; score = 0;
 
-    idx = 0;
-    score = 0;
-
-    show("quiz-screen");
-    next();
+    setTimeout(() => {
+        show("quiz-screen");
+        next();
+    }, 400);
 }
 
 function next(){
